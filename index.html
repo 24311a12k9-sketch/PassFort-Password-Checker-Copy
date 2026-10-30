@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔐 PassFort</h1>
+    <h2>Password Strength Checker</h2>
+
+    <p>Check how secure your password is</p>
+
+    <form method="POST">
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+        >
+        <button type="button" onclick="togglePassword()">
+    Show / Hide Password
+</button>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+        <button type="submit">Check Password</button>
+
+    </form>
+
+    {% if strength %}
+
+    <h2 class="result">Password Strength: {{ strength }}</h2>
+
+    <h3>Security Requirements</h3>
+
+    {% for rule, passed in rules.items() %}
+
+        <p>
+            {% if passed %}
+                <span class="success">✔</span>
+            {% else %}
+                <span class="fail">✘</span>
+            {% endif %}
+
+            {{ rule }}
+        </p>
+
+    {% endfor %}
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
